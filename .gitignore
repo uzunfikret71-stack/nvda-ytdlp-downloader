@@ -1,0 +1,5 @@
+bin/
+__pycache__/
+*.pyc
+*.bak
+[Aa][Gg][Ee][Nn][Tt][Ss].[Mm][Dd]

@@ -1,9 +1,9 @@
 # GitHub Actions
 
-`main` dal?na g?nderimde, pull request a??ld???nda veya Actions > Build add-on > Run workflow ile paket olu?turulur. Paket ve SHA-256 dosyas? ?al??man?n `nvda-addon` artifact b?l?m?nden indirilir.
+Pushes to main, pull requests and Actions > Build add-on > Run workflow build an add-on package. Download the package and SHA-256 file from the nvda-addon artifact.
 
-S?r?m haz?rlarken manifest s?r?m?n? (Media Converter i?in buildVars.py) ve de?i?iklik notlar?n? g?ncelleyin. Ard?ndan ayn? s?r?mle `vX.Y.Z` etiketi g?nderin. Ba?ar?l? derleme paketi bir **taslak Release** i?ine ekler; ger?ek NVDA testlerinden sonra GitHub ?zerinden yay?mlay?n. Mevcut Release dosyalar?n?n ?zerine yaz?lmaz.
+For a release, update the manifest version (buildVars.py for Media Converter) and release notes, then push a matching vX.Y.Z tag. A successful build creates a draft Release. Publish it after real NVDA testing. Existing releases and assets are never overwritten.
 
-Kaynak depoda bulunmayan binary dosyalar? scripts/ci_build.py i?inde belirtilen mevcut Release paketinden al?n?r ve sabit SHA-256 ile do?rulan?r. Binary s?r?mlerini de?i?tirmek i?in bu kaynak ve hash a??k?a g?ncellenmelidir. ?? ak??? bu ara?lar? ?al??t?rmaz.
+scripts/ci_build.py downloads missing binaries from a fixed existing release and verifies the pinned SHA-256 before extraction. To update binaries, explicitly update that URL and checksum. Media Converter runs unit and FFmpeg integration tests on Windows after preparing these verified binaries; the downloader checks Python syntax and package integrity without executing the binaries.
 
-Bu i? ak??? kullan?c?lar?n kurulu eklentilerini g?ncellemez ve NVDA Add-on Store ba?vurusu g?ndermez. NVDA kurulum, y?kseltme ve eri?ilebilirlik testleri ayr?ca yap?lmal?d?r. Eklenti s?r?m?, NVDA uyumlulu?u ve k?sayollar bu CI de?i?ikli?iyle de?i?tirilmemi?tir.
+This workflow does not update installed add-ons or submit anything to the NVDA Add-on Store. Manual NVDA installation, upgrade and accessibility testing is still required. Add-on versions, NVDA compatibility metadata and keyboard shortcuts have not changed.
